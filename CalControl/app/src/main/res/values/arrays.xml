@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="atividade_array">
+        <item>Sedentario</item>
+        <item>Exercicios leves</item>
+        <item>Exercicios moderados</item>
+        <item>Exercicios pesados</item>
+        <item>Atleta</item>
+    </string-array>
+
+    <string-array name="meta_array">
+        <item>Perder Peso</item>
+        <item>Manter Peso</item>
+        <item>Ganhar Massa</item>
+    </string-array>
+</resources>

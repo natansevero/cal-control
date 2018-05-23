@@ -69,10 +69,47 @@
         android:layout_marginLeft="16dp"
         android:text="Alimentos consumidos hoje"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_alimentos_do_dia"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_alimentos_do_dia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:src="@drawable/fab_add"
+            app:menu_showShadow="true"
+            app:menu_fab_label=""
+            app:menu_openDirection="up"
+            app:menu_backgroundColor="@android:color/transparent">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_selecionar_alimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_label="Selecionar alimento"
+                app:fab_size="mini"
+                android:src="@android:drawable/ic_menu_agenda"/>
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_add_alimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_label="Adicionar alimento"
+                app:fab_size="mini"
+                android:src="@android:drawable/ic_menu_add"/>
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+
+    </FrameLayout>
+
 </LinearLayout>

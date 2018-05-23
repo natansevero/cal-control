@@ -1,4 +1,4 @@
-package com.example.natan.calcontrol;
+package com.example.natan.calcontrol.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.natan.calcontrol.R;
 
 public class AlimentoAdapter extends RecyclerView.Adapter<AlimentoAdapter.AlimentoAdapterViewHolder> {
 
@@ -31,7 +33,9 @@ public class AlimentoAdapter extends RecyclerView.Adapter<AlimentoAdapter.Alimen
 
     @Override
     public void onBindViewHolder(@NonNull AlimentoAdapterViewHolder holder, int position) {
-        holder.mAlimentoTextView.setText(mAlimentoData[position]);
+        String[] splitData = mAlimentoData[position].split("-");
+        holder.mAlimentoTextView.setText(splitData[0]);
+        holder.mAlimentoCalTextView.setText(splitData[1]);
     }
 
     public void setmAlimentoData(String[] alimentoData) {
@@ -48,10 +52,12 @@ public class AlimentoAdapter extends RecyclerView.Adapter<AlimentoAdapter.Alimen
     public class AlimentoAdapterViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView mAlimentoTextView;
+        public final TextView mAlimentoCalTextView;
 
         public AlimentoAdapterViewHolder(View itemView) {
             super(itemView);
             mAlimentoTextView = (TextView) itemView.findViewById(R.id.tv_alimento_data);
+            mAlimentoCalTextView = (TextView) itemView.findViewById(R.id.tv_alimento_cal);
         }
     }
 }
