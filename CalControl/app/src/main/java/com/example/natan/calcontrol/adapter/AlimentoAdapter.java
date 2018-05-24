@@ -14,8 +14,10 @@ public class AlimentoAdapter extends RecyclerView.Adapter<AlimentoAdapter.Alimen
 
     private String[] mAlimentoData;
 
-    public AlimentoAdapter() {
+    private final AlimentoAdapterOnClickListener mClickHandler;
 
+    public AlimentoAdapter(AlimentoAdapterOnClickListener clickHandler) {
+        this.mClickHandler = clickHandler;
     }
 
     @NonNull
@@ -49,7 +51,7 @@ public class AlimentoAdapter extends RecyclerView.Adapter<AlimentoAdapter.Alimen
         return mAlimentoData.length;
     }
 
-    public class AlimentoAdapterViewHolder extends RecyclerView.ViewHolder {
+    public class AlimentoAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public final TextView mAlimentoTextView;
         public final TextView mAlimentoCalTextView;
@@ -58,6 +60,14 @@ public class AlimentoAdapter extends RecyclerView.Adapter<AlimentoAdapter.Alimen
             super(itemView);
             mAlimentoTextView = (TextView) itemView.findViewById(R.id.tv_alimento_data);
             mAlimentoCalTextView = (TextView) itemView.findViewById(R.id.tv_alimento_cal);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int adapterPosition= getAdapterPosition();
+            String alimento = mAlimentoData[adapterPosition];
+            mClickHandler.onClick(alimento);
         }
     }
 }

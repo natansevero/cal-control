@@ -11,10 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.natan.calcontrol.adapter.AlimentoAdapter;
+import com.example.natan.calcontrol.adapter.AlimentoAdapterOnClickListener;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AlimentoAdapterOnClickListener {
 
     private RecyclerView mAlimentosDoDiaRecyclerView;
     private AlimentoAdapter mAlimentoAdapter;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mAlimentosDoDiaRecyclerView.setLayoutManager(layoutManager);
         mAlimentosDoDiaRecyclerView.setHasFixedSize(true);
 
-        mAlimentoAdapter = new AlimentoAdapter();
+        mAlimentoAdapter = new AlimentoAdapter(this);
         mAlimentosDoDiaRecyclerView.setAdapter(mAlimentoAdapter);
 
         loadMockData();
@@ -98,10 +99,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(itemWasSelected == R.id.configuracoes_action) {
-            Log.d("MENU", "configuraçoes");
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(String alimento) {
+        Intent intent = new Intent(this, AlimentoActivity.class);
+        startActivity(intent);
     }
 }

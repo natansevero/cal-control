@@ -19,8 +19,12 @@
         <activity
             android:name=".CalcDeficitActivity"
             android:label="@string/calc_deficit_activity" />
-        <activity android:name=".MeusAlimentosActivity"
-            android:label="@string/meus_alimentos_activity"/>
+        <activity
+            android:name=".MeusAlimentosActivity"
+            android:label="@string/meus_alimentos_activity" />
+        <activity
+            android:name=".AlimentoActivity"
+            android:label="@string/alimento_activity"></activity>
     </application>
 
 </manifest>

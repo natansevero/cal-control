@@ -1,13 +1,15 @@
 package com.example.natan.calcontrol;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.natan.calcontrol.adapter.AlimentoAdapter;
+import com.example.natan.calcontrol.adapter.AlimentoAdapterOnClickListener;
 
-public class MeusAlimentosActivity extends AppCompatActivity {
+public class MeusAlimentosActivity extends AppCompatActivity implements AlimentoAdapterOnClickListener {
 
     private RecyclerView mMeusAlimentosRecyclerView;
     private AlimentoAdapter mAlimentoAdapter;
@@ -23,7 +25,7 @@ public class MeusAlimentosActivity extends AppCompatActivity {
         mMeusAlimentosRecyclerView.setLayoutManager(linearLayoutManager);
         mMeusAlimentosRecyclerView.setHasFixedSize(true);
 
-        mAlimentoAdapter = new AlimentoAdapter();
+        mAlimentoAdapter = new AlimentoAdapter(this);
         mMeusAlimentosRecyclerView.setAdapter(mAlimentoAdapter);
 
         loadMockData();
@@ -41,5 +43,11 @@ public class MeusAlimentosActivity extends AppCompatActivity {
         };
 
         mAlimentoAdapter.setmAlimentoData(alimentos);
+    }
+
+    @Override
+    public void onClick(String alimento) {
+        Intent intent = new Intent(this, AlimentoActivity.class);
+        startActivity(intent);
     }
 }
