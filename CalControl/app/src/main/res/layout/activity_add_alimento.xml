@@ -26,20 +26,11 @@
         android:layout_height="0dp"
         android:layout_weight="2">
 
-        <TextView
-            android:id="@+id/tv_desc_alimento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextViewStylesWithValues"
-            android:layout_gravity="center"
-            android:text="dsadsdf" />
-
         <EditText
-            android:id="@+id/et_editar_desc_alimento"
+            android:id="@+id/et_desc_alimento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:visibility="invisible"/>
+            android:inputType="text"/>
 
     </FrameLayout>
 
@@ -57,20 +48,11 @@
         android:layout_height="0dp"
         android:layout_weight="2">
 
-        <TextView
-            android:id="@+id/tv_cal_alimento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextViewStylesWithValues"
-            android:layout_gravity="center"
-            android:text="120"/>
-
         <EditText
-            android:id="@+id/et_editar_cal_alimento"
+            android:id="@+id/et_cal_alimento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:visibility="invisible"/>
+            android:inputType="numberDecimal"/>
     </FrameLayout>
 
 

@@ -5,30 +5,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.natan.calcontrol.adapter.AlimentoAdapter;
 import com.example.natan.calcontrol.adapter.AlimentoAdapterOnClickListener;
 
-public class MeusAlimentosActivity extends AppCompatActivity implements AlimentoAdapterOnClickListener {
+public class SelecionarAlimentoActivity extends AppCompatActivity implements AlimentoAdapterOnClickListener {
 
-    private RecyclerView mMeusAlimentosRecyclerView;
+    private RecyclerView mSelecionarAlimentoRecyclerView;
     private AlimentoAdapter mAlimentoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meus_alimentos);
+        setContentView(R.layout.activity_selecionar_alimento);
 
-        mMeusAlimentosRecyclerView = (RecyclerView) findViewById(R.id.rv_meus_alimentos);
+        mSelecionarAlimentoRecyclerView = (RecyclerView) findViewById(R.id.rv_selecionar_alimento);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mMeusAlimentosRecyclerView.setLayoutManager(linearLayoutManager);
-        mMeusAlimentosRecyclerView.setHasFixedSize(true);
+        mSelecionarAlimentoRecyclerView.setLayoutManager(linearLayoutManager);
+        mSelecionarAlimentoRecyclerView.setHasFixedSize(true);
 
         mAlimentoAdapter = new AlimentoAdapter(this);
-        mMeusAlimentosRecyclerView.setAdapter(mAlimentoAdapter);
+        mSelecionarAlimentoRecyclerView.setAdapter(mAlimentoAdapter);
 
         loadMockData();
     }
@@ -48,26 +49,7 @@ public class MeusAlimentosActivity extends AppCompatActivity implements Alimento
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_alimento, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemWasSelected = item.getItemId();
-
-        if(itemWasSelected == R.id.salvar_novo_aliemnto_action) {
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClick(String alimento) {
-        Intent intent = new Intent(this, AlimentoActivity.class);
-        startActivity(intent);
+        Log.d("SELECIONAR", alimento);
     }
 }

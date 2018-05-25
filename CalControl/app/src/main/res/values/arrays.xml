@@ -14,4 +14,17 @@
         <item>Manter Peso</item>
         <item>Ganhar Massa</item>
     </string-array>
+    
+    <!-- Arrays for preferences -->
+    <string-array name="pref_cor_options">
+        <item>@string/pref_cor_azul_label</item>
+        <item>@string/pref_cor_laranja_label</item>
+        <item>@string/pref_cor_verde_label</item>
+    </string-array>
+
+    <string-array name="pref_cor_values">
+        <item>@string/pref_cor_azul_value</item>
+        <item>@string/pref_cor_laranja_value</item>
+        <item>@string/pref_cor_verde_value</item>
+    </string-array>
 </resources>

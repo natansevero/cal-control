@@ -3,6 +3,9 @@
     <string name="calc_deficit_activity">Calcular Deficit</string>
     <string name="meus_alimentos_activity">Meus Alimentos</string>
     <string name="alimento_activity">Alimento</string>
+    <string name="add_alimento_activity">Adicionar Alimento</string>
+    <string name="selecionar_alimento_activity">Selecionar Alimento</string>
+    <string name="configuracoes_activity">Configuraçoes</string>
 
     <!-- Menu main.xml -->
     <string name="calcular_deficit_action">Calcular Deficit</string>
@@ -16,4 +19,16 @@
     <string name="editar_alimento_action">Editar</string>
     <string name="excluir_alimento_action">Excluir</string>
     <string name="salvar_alimento_action">Salvar</string>
+    
+    <!-- Color preferences -->
+    <string name="pref_cor_key">cor</string>
+    <string name="pref_cor_label">Cor</string>
+
+    <string name="pref_cor_azul_label">Azul</string>
+    <string name="pref_cor_laranja_label">Laranja</string>
+    <string name="pref_cor_verde_label">Verde</string>
+
+    <string name="pref_cor_azul_value">blue</string>
+    <string name="pref_cor_laranja_value">orange</string>
+    <string name="pref_cor_verde_value">green</string>
 </resources>

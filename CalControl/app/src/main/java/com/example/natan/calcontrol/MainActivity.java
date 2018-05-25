@@ -1,11 +1,11 @@
 package com.example.natan.calcontrol;
 
 import android.content.Intent;
+import android.os.IInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,14 +34,16 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
         mAddAlimentoFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ADD", "Add alimento");
+                Intent intent = new Intent(MainActivity.this, AddAlimentoActivity.class);
+                startActivity(intent);
             }
         });
 
         mSelecionarAlimentoFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("SELECT", "selecionar alimento");
+                Intent intent = new Intent(MainActivity.this, SelecionarAlimentoActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -99,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
         }
 
         if(itemWasSelected == R.id.configuracoes_action) {
+            Intent intent = new Intent(this, ConfiguracaoActivity.class);
+            startActivity(intent);
 
             return true;
         }
