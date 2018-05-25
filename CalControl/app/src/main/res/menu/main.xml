@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/calcular_deficit_action"
+        android:title="@string/calcular_deficit_action"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/meus_alimentos_action"
+        android:title="@string/meus_alimentos_action"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/configuracoes_action"
+        android:title="@string/configuracoes_action"
+        app:showAsAction="never"/>
+</menu>

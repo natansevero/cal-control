@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="@string/salvar_alimento_action"
+        android:id="@+id/salvar_alimento_action"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/editar_alimento_action"
+        android:title="@string/editar_alimento_action"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/excluir_alimento_action"
+        android:title="@string/excluir_alimento_action"
+        app:showAsAction="always"/>
+
+</menu>
