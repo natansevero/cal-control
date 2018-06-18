@@ -13,17 +13,19 @@
         android:layout_marginTop="16dp">
 
         <TextView
+            android:id="@+id/tv_meta_cal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meta: Ganhar massa"
+            android:text="Meta: Sem meta"
             android:textColor="@android:color/black"
             android:layout_gravity="center"
             android:textSize="20sp"/>
 
         <TextView
+            android:id="@+id/tv_resultado_cal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2,500 cal"
+            android:text="Ainda a calcular"
             android:textColor="@android:color/black"
             android:layout_gravity="center"
             android:textSize="30sp"/>
@@ -55,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1,450 cal"
+            android:text="1450.0 cal"
             android:textColor="@android:color/black"
             android:layout_gravity="center_horizontal"
             android:textSize="30sp"/>

@@ -69,14 +69,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Altura"
+            android:text="Altura (Em CM)"
             style="@style/TextViewStyles"/>
 
         <EditText
             android:id="@+id/et_altura"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="3"
             android:layout_marginBottom="16dp"/>
 
         <TextView

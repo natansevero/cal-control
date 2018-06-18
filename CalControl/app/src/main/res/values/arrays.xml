@@ -2,17 +2,17 @@
 <resources>
 
     <string-array name="atividade_array">
-        <item>Sedentario</item>
-        <item>Exercicios leves</item>
-        <item>Exercicios moderados</item>
-        <item>Exercicios pesados</item>
-        <item>Atleta</item>
+        <item>@string/sedentario</item>
+        <item>@string/exec_leves</item>
+        <item>@string/exec_moderados</item>
+        <item>@string/exec_pesados</item>
+        <item>@string/atleta</item>
     </string-array>
 
     <string-array name="meta_array">
-        <item>Perder Peso</item>
-        <item>Manter Peso</item>
-        <item>Ganhar Massa</item>
+        <item>@string/perder_peso</item>
+        <item>@string/manter_peso</item>
+        <item>@string/ganhar_massa</item>
     </string-array>
     
     <!-- Arrays for preferences -->

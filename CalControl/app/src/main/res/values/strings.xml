@@ -31,4 +31,18 @@
     <string name="pref_cor_azul_value">blue</string>
     <string name="pref_cor_laranja_value">orange</string>
     <string name="pref_cor_verde_value">green</string>
+
+    <!-- Spinners de calcular deficit -->
+    <!-- Atividade -->
+    <string name="sedentario">Sedentario</string>
+    <string name="exec_leves">Exercicios Leves</string>
+    <string name="exec_moderados">Exercicios Moderados</string>
+    <string name="exec_pesados">Exercicios Pesados</string>
+    <string name="atleta">Atleta</string>
+
+    <!-- Meta -->
+    <string name="perder_peso">Perder Peso</string>
+    <string name="manter_peso">Manter Peso</string>
+    <string name="ganhar_massa">Ganhar Massa</string>
+
 </resources>
