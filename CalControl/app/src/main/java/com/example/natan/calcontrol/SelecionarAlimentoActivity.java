@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.example.natan.calcontrol.adapter.AlimentoAdapter;
 import com.example.natan.calcontrol.adapter.AlimentoAdapterOnClickListener;
+import com.example.natan.calcontrol.database.AlimentoEntry;
 
 public class SelecionarAlimentoActivity extends AppCompatActivity implements AlimentoAdapterOnClickListener {
 
@@ -31,25 +32,11 @@ public class SelecionarAlimentoActivity extends AppCompatActivity implements Ali
         mAlimentoAdapter = new AlimentoAdapter(this);
         mSelecionarAlimentoRecyclerView.setAdapter(mAlimentoAdapter);
 
-        loadMockData();
-    }
-
-    private void loadMockData() {
-        String[] alimentos = {
-                "Carne-200 cal",
-                "Arroz-200 cal",
-                "Feijao-200 cal",
-                "YYYY-200 cal",
-                "ZZZ-200 cal",
-                "UUUUUUU-200 cal",
-                "IIIIIII-200 cal"
-        };
-
-        mAlimentoAdapter.setmAlimentoData(alimentos);
+//        loadMockData();
     }
 
     @Override
-    public void onClick(String alimento) {
-        Log.d("SELECIONAR", alimento);
+    public void onClick(AlimentoEntry alimento) {
+        Log.d("SELECIONAR", alimento.toString());
     }
 }

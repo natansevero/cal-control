@@ -19,6 +19,9 @@
     <string name="editar_alimento_action">Editar</string>
     <string name="excluir_alimento_action">Excluir</string>
     <string name="salvar_alimento_action">Salvar</string>
+
+    <!-- Menu add_aliento.xml -->
+    <string name="tirar_foto">Tirar foto</string>
     
     <!-- Color preferences -->
     <string name="pref_cor_key">cor</string>
