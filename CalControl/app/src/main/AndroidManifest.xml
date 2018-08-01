@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.natan.calcontrol">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,9 +39,16 @@
             android:label="@string/selecionar_alimento_activity" />
         <activity
             android:name=".ConfiguracaoActivity"
-            android:label="@string/configuracoes_activity"/>
-        <service android:name=".services.GetDataService"/>
-        <service android:name=".services.PostDataService"/>
+            android:label="@string/configuracoes_activity" />
+        <activity
+            android:name=".InfosActivity"
+            android:label="@string/infos_activity" />
+
+        <service android:name=".services.GetDataService" />
+        <service android:name=".services.PostDataService" />
+
+        <receiver android:name=".receivers.BatteryLevelReceiver" />
+
     </application>
 
 </manifest>

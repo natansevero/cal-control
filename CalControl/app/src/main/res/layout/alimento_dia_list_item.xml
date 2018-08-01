@@ -10,9 +10,10 @@
 
         <ImageView
             android:id="@+id/iv_alimento_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:paddingLeft="16dp"
+            android:layout_centerVertical="true"
             android:src="@android:drawable/ic_menu_gallery"/>
 
         <TextView
@@ -20,16 +21,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/iv_alimento_image"
-            style="@style/TextAppearance.AppCompat.Large"
-            android:padding="16dp"/>
+            android:paddingLeft="16dp"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/tv_alimento_cal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            style="@style/TextAppearance.AppCompat.Large"
-            android:padding="16dp"/>
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_centerVertical="true"
+            android:paddingRight="16dp"/>
 
     </RelativeLayout>
 

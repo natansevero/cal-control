@@ -18,6 +18,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
+import com.example.natan.calcontrol.database.AppDatabase;
+import com.example.natan.calcontrol.database.DeficitDao;
+import com.example.natan.calcontrol.database.DeficitEntry;
+import com.example.natan.calcontrol.executor.AppExecutors;
 import com.example.natan.calcontrol.services.PostDataService;
 
 import org.json.JSONException;
@@ -38,6 +42,11 @@ public class CalcDeficitActivity extends AppCompatActivity {
 
     private Intent intent;
 
+    private AppDatabase appDatabase;
+
+    private String metaPessoa;
+    private double calcPessoa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +57,8 @@ public class CalcDeficitActivity extends AppCompatActivity {
         mAlturaEditText = (EditText) findViewById(R.id.et_altura);
 
         mPostDataHandler = new PostDataHandler();
+
+        appDatabase = AppDatabase.getInstance(getApplicationContext());
 
         mAtividadeSpinner = (Spinner) findViewById(R.id.spinner_atividade);
         mMetaSpinner = (Spinner) findViewById(R.id.spinner_meta);
@@ -87,6 +98,11 @@ public class CalcDeficitActivity extends AppCompatActivity {
                 intent = new Intent(CalcDeficitActivity.this, PostDataService.class);
                 intent.putExtra("meta", meta);
                 intent.putExtra("resultado", resultado);
+
+                // Cache for insert in the database
+                metaPessoa = meta;
+                calcPessoa = resultado;
+
                 startService(intent);
             }
         });
@@ -188,6 +204,14 @@ public class CalcDeficitActivity extends AppCompatActivity {
                 editor.commit();
 
                 Log.d("ID", id);
+
+                final DeficitEntry deficitEntry = new DeficitEntry(Integer.parseInt(id), metaPessoa, calcPessoa);
+                AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        appDatabase.deficitDao().insertDificit(deficitEntry);
+                    }
+                });
 
             } catch (JSONException e) {
                 e.printStackTrace();

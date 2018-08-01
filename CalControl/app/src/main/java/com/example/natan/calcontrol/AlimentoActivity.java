@@ -1,32 +1,60 @@
 package com.example.natan.calcontrol;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.natan.calcontrol.database.AlimentoEntry;
+import com.example.natan.calcontrol.database.AppDatabase;
+import com.example.natan.calcontrol.executor.AppExecutors;
+import com.example.natan.calcontrol.utils.Util;
+
+import java.io.Serializable;
 
 public class AlimentoActivity extends AppCompatActivity {
 
     private MenuItem currentMenuItem;
+    private ImageView mAlimentoSawImageView;
     private TextView mDescAlimentoTextView;
     private TextView mCalAliemntoTextView;
     private EditText mEditarDescAlimentoEditText;
     private EditText mEditarCalAlimentoEditText;
+
+    private AlimentoEntry alimentoEntry;
+
+    private AppDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alimento);
 
+        mAlimentoSawImageView = (ImageView) findViewById(R.id.iv_alimento_saw);
         mDescAlimentoTextView = (TextView) findViewById(R.id.tv_desc_alimento);
         mCalAliemntoTextView = (TextView) findViewById(R.id.tv_cal_alimento);
         mEditarDescAlimentoEditText = (EditText) findViewById(R.id.et_editar_desc_alimento);
         mEditarCalAlimentoEditText = (EditText) findViewById(R.id.et_editar_cal_alimento);
 
+        mDb = AppDatabase.getInstance(getApplicationContext());
+
+        alimentoEntry = (AlimentoEntry) getIntent().getSerializableExtra("alimento");
+
+        populateUI();
+    }
+
+    private void populateUI() {
+        mAlimentoSawImageView.setImageBitmap(Util.byteToBitmap(alimentoEntry.getFoto()));
+        mDescAlimentoTextView.setText(alimentoEntry.getDesc());
+        mCalAliemntoTextView.setText(""+alimentoEntry.getCal());
     }
 
     @Override
@@ -54,10 +82,36 @@ public class AlimentoActivity extends AppCompatActivity {
             findViewById(R.id.excluir_alimento_action).setVisibility(View.INVISIBLE);
             findViewById(R.id.salvar_alimento_action).setVisibility(View.VISIBLE);
 
+            // Jogar os dados nos EditText
+            mEditarDescAlimentoEditText.setText(alimentoEntry.getDesc());
+            mEditarCalAlimentoEditText.setText(""+alimentoEntry.getCal());
+
             return true;
         }
 
         if(itemWasSelected == R.id.salvar_alimento_action) {
+
+            String novaDesc = mEditarDescAlimentoEditText.getText().toString();
+            String novaCal = mEditarCalAlimentoEditText.getText().toString();
+
+            alimentoEntry.setDesc(novaDesc);
+            alimentoEntry.setCal(Double.parseDouble(novaCal));
+
+            AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    mDb.alimentoDao().updateAlimento(alimentoEntry);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            populateUI();
+                            Toast.makeText(getApplicationContext(), "Alimento atualizado", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+
             mDescAlimentoTextView.setVisibility(View.VISIBLE);
             mCalAliemntoTextView.setVisibility(View.VISIBLE);
 
@@ -69,6 +123,16 @@ public class AlimentoActivity extends AppCompatActivity {
             findViewById(R.id.salvar_alimento_action).setVisibility(View.INVISIBLE);
 
             return true;
+        }
+
+        if(itemWasSelected == R.id.excluir_alimento_action) {
+            AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    mDb.alimentoDao().deleteAlimento(alimentoEntry);
+                    finish();
+                }
+            });
         }
 
 

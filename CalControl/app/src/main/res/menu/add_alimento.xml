@@ -5,4 +5,9 @@
         android:id="@+id/salvar_novo_aliemnto_action"
         android:title="@string/salvar_alimento_action"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/tirar_foto_action"
+        android:title="@string/tirar_foto"
+        app:showAsAction="always" />
 </menu>
