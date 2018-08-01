@@ -11,6 +11,7 @@
     <string name="calcular_deficit_action">Calcular Deficit</string>
     <string name="meus_alimentos_action">Meus Alimentos</string>
     <string name="configuracoes_action">Configuraçoes</string>
+    <string name="infos_action">Infos</string>
 
     <!-- Menu deficit.xml -->
     <string name="calcular_action">Calcular</string>
@@ -22,7 +23,7 @@
 
     <!-- Menu add_aliento.xml -->
     <string name="tirar_foto">Tirar foto</string>
-    
+
     <!-- Color preferences -->
     <string name="pref_cor_key">cor</string>
     <string name="pref_cor_label">Cor</string>

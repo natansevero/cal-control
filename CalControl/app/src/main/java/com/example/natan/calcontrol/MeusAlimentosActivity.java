@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -54,6 +55,7 @@ public class MeusAlimentosActivity extends AppCompatActivity implements Alimento
     @Override
     public void onClick(AlimentoEntry alimento) {
         Intent intent = new Intent(this, AlimentoActivity.class);
+        intent.putExtra("alimento", alimento);
         startActivity(intent);
     }
 }

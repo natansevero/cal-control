@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IInterface;
@@ -23,6 +24,7 @@ import com.example.natan.calcontrol.adapter.AlimentoAdapter;
 import com.example.natan.calcontrol.adapter.AlimentoAdapterOnClickListener;
 import com.example.natan.calcontrol.database.AlimentoEntry;
 import com.example.natan.calcontrol.database.AppDatabase;
+import com.example.natan.calcontrol.receivers.BatteryLevelReceiver;
 import com.example.natan.calcontrol.services.GetDataService;
 import com.example.natan.calcontrol.utils.Util;
 import com.example.natan.calcontrol.viewmodels.MainViewModel;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
 
     private TextView mMetaCalTextView;
     private TextView mResultadoCalTextView;
+    private TextView mDiaCalTextView;
 
     private RecyclerView mAlimentosDoDiaRecyclerView;
     private AlimentoAdapter mAlimentoAdapter;
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
     public static Handler mGetDataHandler;
 
     private AppDatabase appDatabase;
+
+    private BatteryLevelReceiver batteryLevelReceiver;
 
     private static final String PREFERENCES_FILE = "FILE_CAL";
 
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
 
         mMetaCalTextView = (TextView) findViewById(R.id.tv_meta_cal);
         mResultadoCalTextView = (TextView) findViewById(R.id.tv_resultado_cal);
+        mDiaCalTextView = (TextView) findViewById(R.id.tv_dia_cal);
 
         mFAMenu = (FloatingActionMenu) findViewById(R.id.fab);
         mAddAlimentoFab = (FloatingActionButton) findViewById(R.id.fab_add_alimento);
@@ -104,10 +110,22 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
     private void loadByData() {
         MainViewModelFactory factory = new MainViewModelFactory(appDatabase, Util.getTime());
         final MainViewModel mainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
+
         mainViewModel.getAlimentosByData().observe(this, new Observer<List<AlimentoEntry>>() {
             @Override
             public void onChanged(@Nullable List<AlimentoEntry> alimentoEntries) {
                 mAlimentoAdapter.setmAlimentoData(alimentoEntries);
+            }
+        });
+
+        mainViewModel.getCalsDia().observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(@Nullable Double aDouble) {
+                if(aDouble != null) {
+                    mDiaCalTextView.setText("" + aDouble + " cal");
+                } else {
+                    mDiaCalTextView.setText("0 cal");
+                }
             }
         });
     }
@@ -115,7 +133,24 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
     @Override
     protected void onStart() {
         startServiceGetData();
+
         super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        batteryLevelReceiver = new BatteryLevelReceiver();
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
+        registerReceiver(batteryLevelReceiver, intentFilter);
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(batteryLevelReceiver);
+
+        super.onPause();
     }
 
     @Override
@@ -149,12 +184,20 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
             return true;
         }
 
+        if(itemWasSelected == R.id.infos_action) {
+            Intent intent = new Intent(this, InfosActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(AlimentoEntry alimento) {
         Intent intent = new Intent(this, AlimentoActivity.class);
+        intent.putExtra("alimento", alimento);
         startActivity(intent);
     }
 

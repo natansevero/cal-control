@@ -6,6 +6,7 @@
     android:padding="16dp">
 
     <ImageView
+        android:id="@+id/iv_alimento_saw"
         android:layout_width="200dp"
         android:layout_height="160dp"
         android:layout_gravity="center"

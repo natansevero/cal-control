@@ -10,17 +10,20 @@ public class DeficitEntry {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private int idServico;
+    private String meta;
     private double calculo;
 
     @Ignore
-    public DeficitEntry(int idServico, double calculo) {
+    public DeficitEntry(int idServico, String meta, double calculo) {
         this.idServico = idServico;
+        this.meta = meta;
         this.calculo = calculo;
     }
 
-    public DeficitEntry(int id, int idServico, double calculo) {
+    public DeficitEntry(int id, int idServico, String meta, double calculo) {
         this.id = id;
         this.idServico = idServico;
+        this.meta = meta;
         this.calculo = calculo;
     }
 
@@ -38,6 +41,14 @@ public class DeficitEntry {
 
     public void setIdServico(int idServico) {
         this.idServico = idServico;
+    }
+
+    public String getMeta() {
+        return meta;
+    }
+
+    public void setMeta(String meta) {
+        this.meta = meta;
     }
 
     public double getCalculo() {

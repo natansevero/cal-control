@@ -6,8 +6,10 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 @Entity(tableName = "alimento")
-public class AlimentoEntry {
+public class AlimentoEntry implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
