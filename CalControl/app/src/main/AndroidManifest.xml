@@ -40,13 +40,15 @@
         <activity
             android:name=".ConfiguracaoActivity"
             android:label="@string/configuracoes_activity" />
+        <activity
+            android:name=".InfosActivity"
+            android:label="@string/infos_activity" />
 
         <service android:name=".services.GetDataService" />
         <service android:name=".services.PostDataService" />
 
         <receiver android:name=".receivers.BatteryLevelReceiver" />
 
-        <activity android:name=".InfosActivity"></activity>
     </application>
 
 </manifest>

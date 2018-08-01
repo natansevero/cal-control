@@ -82,10 +82,36 @@ public class AlimentoActivity extends AppCompatActivity {
             findViewById(R.id.excluir_alimento_action).setVisibility(View.INVISIBLE);
             findViewById(R.id.salvar_alimento_action).setVisibility(View.VISIBLE);
 
+            // Jogar os dados nos EditText
+            mEditarDescAlimentoEditText.setText(alimentoEntry.getDesc());
+            mEditarCalAlimentoEditText.setText(""+alimentoEntry.getCal());
+
             return true;
         }
 
         if(itemWasSelected == R.id.salvar_alimento_action) {
+
+            String novaDesc = mEditarDescAlimentoEditText.getText().toString();
+            String novaCal = mEditarCalAlimentoEditText.getText().toString();
+
+            alimentoEntry.setDesc(novaDesc);
+            alimentoEntry.setCal(Double.parseDouble(novaCal));
+
+            AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    mDb.alimentoDao().updateAlimento(alimentoEntry);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            populateUI();
+                            Toast.makeText(getApplicationContext(), "Alimento atualizado", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+
             mDescAlimentoTextView.setVisibility(View.VISIBLE);
             mCalAliemntoTextView.setVisibility(View.VISIBLE);
 
