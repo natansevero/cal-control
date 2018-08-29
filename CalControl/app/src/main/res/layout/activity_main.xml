@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="12dp">
 
         <TextView
             android:id="@+id/tv_meta_cal"
@@ -19,7 +19,7 @@
             android:text="Meta: Sem meta"
             android:textColor="@android:color/black"
             android:layout_gravity="center"
-            android:textSize="20sp"/>
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/tv_resultado_cal"
@@ -28,7 +28,7 @@
             android:text="Ainda a calcular"
             android:textColor="@android:color/black"
             android:layout_gravity="center"
-            android:textSize="30sp"/>
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <View
@@ -52,7 +52,7 @@
             android:text="Hoje"
             android:textColor="@android:color/black"
             android:layout_gravity="center_horizontal"
-            android:textSize="20sp"/>
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/tv_dia_cal"
@@ -61,16 +61,29 @@
             android:text="1450.0 cal"
             android:textColor="@android:color/black"
             android:layout_gravity="center_horizontal"
-            android:textSize="30sp"/>
+            android:textSize="20sp"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="4dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textColor="@android:color/black"
-        android:layout_marginLeft="16dp"
+        android:layout_gravity="center"
         android:text="Alimentos consumidos hoje"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
