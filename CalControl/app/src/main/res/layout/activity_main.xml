@@ -73,11 +73,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textColor="@android:color/black"
         android:layout_gravity="center"
-        android:text="Alimentos consumidos hoje"/>
-
+        android:text="Alimentos consumidos hoje" />
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
