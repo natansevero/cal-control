@@ -50,4 +50,9 @@
     <string name="manter_peso">Manter Peso</string>
     <string name="ganhar_massa">Ganhar Massa</string>
 
+    <!-- Notifications -->
+    <string name="notification_title">Controle sua alimentação!</string>
+    <string name="notification_body">Você ultrapassou sua meta de calorias diarias</string>
+    <string name="main_notification_channel_name">Primary</string>
+
 </resources>

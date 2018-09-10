@@ -24,6 +24,7 @@ import com.example.natan.calcontrol.adapter.AlimentoAdapter;
 import com.example.natan.calcontrol.adapter.AlimentoAdapterOnClickListener;
 import com.example.natan.calcontrol.database.AlimentoEntry;
 import com.example.natan.calcontrol.database.AppDatabase;
+import com.example.natan.calcontrol.notification.VerifyCalNotification;
 import com.example.natan.calcontrol.receivers.BatteryLevelReceiver;
 import com.example.natan.calcontrol.services.GetDataService;
 import com.example.natan.calcontrol.utils.Util;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
     private static final String PREFERENCES_FILE = "FILE_CAL";
 
     private Intent intent;
+
+    private Double resultadoDeficit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +104,9 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
         mAlimentoAdapter = new AlimentoAdapter(this);
         mAlimentosDoDiaRecyclerView.setAdapter(mAlimentoAdapter);
 
-        loadByData();
-
         mGetDataHandler = new GetDataHandler();
+
+        loadByData();
 
     }
 
@@ -123,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
             public void onChanged(@Nullable Double aDouble) {
                 if(aDouble != null) {
                     mDiaCalTextView.setText("" + aDouble + " cal");
+
+                    if(resultadoDeficit != null && aDouble > resultadoDeficit) {
+                        VerifyCalNotification.createNotification(MainActivity.this);
+                    }
                 } else {
                     mDiaCalTextView.setText("0 cal");
                 }
@@ -225,6 +232,8 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
 
                 mMetaCalTextView.setText(String.format("%s %s", "Meta:", meta));
                 mResultadoCalTextView.setText(String.format("%s %s", resultado, "cal"));
+
+                resultadoDeficit = resultado;
 
                 Log.d("META", meta);
                 Log.d("RESULTADO", ""+resultado);
