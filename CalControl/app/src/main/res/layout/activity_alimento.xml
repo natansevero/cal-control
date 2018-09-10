@@ -19,7 +19,7 @@
         android:layout_weight="2"
         android:gravity="bottom"
         style="@style/TextViewStyles"
-        android:text="Descricao"
+        android:text="Descrição"
         android:layout_gravity="center"/>
 
     <FrameLayout

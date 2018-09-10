@@ -76,7 +76,7 @@ public class AddAlimentoActivity extends AppCompatActivity {
 
                 Toast.makeText(AddAlimentoActivity.this, "Alimento salvo!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(AddAlimentoActivity.this, "É necessário passar foto, descrição e calorias do alimento!", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddAlimentoActivity.this, "É necessário passar a foto, descrição e calorias do alimento!", Toast.LENGTH_LONG).show();
             }
 
             return true;
