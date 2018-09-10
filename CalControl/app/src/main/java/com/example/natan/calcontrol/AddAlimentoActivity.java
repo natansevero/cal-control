@@ -59,10 +59,10 @@ public class AddAlimentoActivity extends AppCompatActivity {
         int itemWasSelected = item.getItemId();
 
         if(itemWasSelected == R.id.salvar_novo_aliemnto_action) {
-            if(mAlimentoBitmap != null) {
+            if(mAlimentoBitmap != null && !mDescEditText.getText().toString().equals("") && !mCalEditText.getText().toString().equals("")) {
                 byte[] foto = Util.bitmapToByte(mAlimentoBitmap);
                 String desc = mDescEditText.getText().toString();
-                double cal = Double.parseDouble(mCalEditText.getText().toString());
+                Double cal = Double.parseDouble(mCalEditText.getText().toString());
                 String data = Util.getTime();
 
                 final AlimentoEntry alimentoEntry = new AlimentoEntry(foto, desc, cal, data);
@@ -75,6 +75,8 @@ public class AddAlimentoActivity extends AppCompatActivity {
                 });
 
                 Toast.makeText(AddAlimentoActivity.this, "Alimento salvo!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(AddAlimentoActivity.this, "É necessário passar foto, descrição e calorias do alimento!", Toast.LENGTH_LONG).show();
             }
 
             return true;
