@@ -42,7 +42,7 @@ public class AlimentoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alimento);
 
-        mAlimentoSawImageView = (ImageView) findViewById(R.id.iv_alimento_saw);
+        mAlimentoSawImageView = (ImageView) findViewById(R.id.iv_alimento_image);
         mDescAlimentoTextView = (TextView) findViewById(R.id.tv_desc_alimento);
         mCalAliemntoTextView = (TextView) findViewById(R.id.tv_cal_alimento);
         mEditarDescAlimentoEditText = (EditText) findViewById(R.id.et_editar_desc_alimento);

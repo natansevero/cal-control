@@ -1,9 +1,11 @@
 package com.example.natan.calcontrol;
 
+import android.app.ActivityOptions;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.example.natan.calcontrol.adapter.AlimentoAdapter;
 import com.example.natan.calcontrol.adapter.AlimentoAdapterOnClickListener;
@@ -53,9 +56,15 @@ public class MeusAlimentosActivity extends AppCompatActivity implements Alimento
     }
 
     @Override
-    public void onClick(AlimentoEntry alimento) {
+    public void onClick(AlimentoEntry alimento, ImageView imgView) {
         Intent intent = new Intent(this, AlimentoActivity.class);
         intent.putExtra("alimento", alimento);
-        startActivity(intent);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, imgView, "robot");
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 }

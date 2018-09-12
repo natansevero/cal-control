@@ -1,11 +1,13 @@
 package com.example.natan.calcontrol;
 
+import android.app.ActivityOptions;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IInterface;
 import android.os.Message;
@@ -18,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.natan.calcontrol.adapter.AlimentoAdapter;
@@ -184,12 +187,12 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
             return true;
         }
 
-        if(itemWasSelected == R.id.configuracoes_action) {
-            Intent intent = new Intent(this, ConfiguracaoActivity.class);
-            startActivity(intent);
-
-            return true;
-        }
+//        if(itemWasSelected == R.id.configuracoes_action) {
+//            Intent intent = new Intent(this, ConfiguracaoActivity.class);
+//            startActivity(intent);
+//
+//            return true;
+//        }
 
         if(itemWasSelected == R.id.infos_action) {
             Intent intent = new Intent(this, InfosActivity.class);
@@ -202,10 +205,16 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
     }
 
     @Override
-    public void onClick(AlimentoEntry alimento) {
+    public void onClick(AlimentoEntry alimento, ImageView imgView) {
         Intent intent = new Intent(this, AlimentoActivity.class);
         intent.putExtra("alimento", alimento);
-        startActivity(intent);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, imgView, "robot");
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 
     public void startServiceGetData() {
