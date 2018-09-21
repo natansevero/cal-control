@@ -1,6 +1,9 @@
 package com.example.natan.calcontrol;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import com.example.natan.calcontrol.database.AlimentoEntry;
 import com.example.natan.calcontrol.database.AppDatabase;
 import com.example.natan.calcontrol.executor.AppExecutors;
+import com.example.natan.calcontrol.services.PostDataService;
 import com.example.natan.calcontrol.utils.Util;
 
 import java.io.Serializable;
@@ -38,7 +42,7 @@ public class AlimentoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alimento);
 
-        mAlimentoSawImageView = (ImageView) findViewById(R.id.iv_alimento_saw);
+        mAlimentoSawImageView = (ImageView) findViewById(R.id.iv_alimento_image);
         mDescAlimentoTextView = (TextView) findViewById(R.id.tv_desc_alimento);
         mCalAliemntoTextView = (TextView) findViewById(R.id.tv_cal_alimento);
         mEditarDescAlimentoEditText = (EditText) findViewById(R.id.et_editar_desc_alimento);
@@ -90,49 +94,81 @@ public class AlimentoActivity extends AppCompatActivity {
         }
 
         if(itemWasSelected == R.id.salvar_alimento_action) {
-
             String novaDesc = mEditarDescAlimentoEditText.getText().toString();
             String novaCal = mEditarCalAlimentoEditText.getText().toString();
 
-            alimentoEntry.setDesc(novaDesc);
-            alimentoEntry.setCal(Double.parseDouble(novaCal));
+            if(!novaDesc.equals("") && !novaCal.equals("")) {
+                alimentoEntry.setDesc(novaDesc);
+                alimentoEntry.setCal(Double.parseDouble(novaCal));
 
-            AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+                AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mDb.alimentoDao().updateAlimento(alimentoEntry);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                populateUI();
+                                Toast.makeText(getApplicationContext(), "Alimento atualizado", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+
+                mDescAlimentoTextView.setVisibility(View.VISIBLE);
+                mCalAliemntoTextView.setVisibility(View.VISIBLE);
+
+                mEditarDescAlimentoEditText.setVisibility(View.INVISIBLE);
+                mEditarCalAlimentoEditText.setVisibility(View.INVISIBLE);
+
+                findViewById(R.id.editar_alimento_action).setVisibility(View.VISIBLE);
+                findViewById(R.id.excluir_alimento_action).setVisibility(View.VISIBLE);
+                findViewById(R.id.salvar_alimento_action).setVisibility(View.INVISIBLE);
+
+                return true;
+            } else {
+                Toast.makeText(AlimentoActivity.this, "É necessário passar a descrição e calorias do alimento!", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+        if(itemWasSelected == R.id.excluir_alimento_action) {
+            findViewById(R.id.salvar_alimento_action).setVisibility(View.INVISIBLE);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Atenção");
+            builder.setMessage("Você deseja excluir o alimento?");
+
+            builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                 @Override
-                public void run() {
-                    mDb.alimentoDao().updateAlimento(alimentoEntry);
-
-                    runOnUiThread(new Runnable() {
+                public void onClick(DialogInterface dialog, int which) {
+                    AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
                         @Override
                         public void run() {
-                            populateUI();
-                            Toast.makeText(getApplicationContext(), "Alimento atualizado", Toast.LENGTH_SHORT).show();
+                            mDb.alimentoDao().deleteAlimento(alimentoEntry);
+                            finish();
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Alimento excluido", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     });
                 }
             });
 
-            mDescAlimentoTextView.setVisibility(View.VISIBLE);
-            mCalAliemntoTextView.setVisibility(View.VISIBLE);
 
-            mEditarDescAlimentoEditText.setVisibility(View.INVISIBLE);
-            mEditarCalAlimentoEditText.setVisibility(View.INVISIBLE);
-
-            findViewById(R.id.editar_alimento_action).setVisibility(View.VISIBLE);
-            findViewById(R.id.excluir_alimento_action).setVisibility(View.VISIBLE);
-            findViewById(R.id.salvar_alimento_action).setVisibility(View.INVISIBLE);
-
-            return true;
-        }
-
-        if(itemWasSelected == R.id.excluir_alimento_action) {
-            AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+            builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                 @Override
-                public void run() {
-                    mDb.alimentoDao().deleteAlimento(alimentoEntry);
-                    finish();
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d("ALIMENTO", "cancelar");
                 }
             });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
 
 

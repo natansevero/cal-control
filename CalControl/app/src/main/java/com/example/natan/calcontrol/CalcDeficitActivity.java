@@ -1,5 +1,6 @@
 package com.example.natan.calcontrol;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,8 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.natan.calcontrol.database.AppDatabase;
 import com.example.natan.calcontrol.database.DeficitDao;
@@ -35,6 +38,8 @@ public class CalcDeficitActivity extends AppCompatActivity {
     private EditText mAlturaEditText;
     private Spinner mAtividadeSpinner;
     private Spinner mMetaSpinner;
+
+    private ProgressDialog mLoadingCalc;
 
     public static Handler mPostDataHandler;
 
@@ -102,6 +107,13 @@ public class CalcDeficitActivity extends AppCompatActivity {
                 // Cache for insert in the database
                 metaPessoa = meta;
                 calcPessoa = resultado;
+
+                mLoadingCalc = new ProgressDialog(CalcDeficitActivity.this);
+                mLoadingCalc.setMessage("Definindo deficit... Aguarde!");
+                mLoadingCalc.setIndeterminate(false);
+                mLoadingCalc.setCanceledOnTouchOutside(true);
+                mLoadingCalc.setCancelable(true);
+                mLoadingCalc.show();
 
                 startService(intent);
             }
@@ -210,6 +222,15 @@ public class CalcDeficitActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         appDatabase.deficitDao().insertDificit(deficitEntry);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mLoadingCalc.dismiss();
+                                Toast.makeText(CalcDeficitActivity.this, "Deficit definido com sucesso!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
                     }
                 });
 

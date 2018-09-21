@@ -77,7 +77,7 @@ public class AlimentoAdapter extends RecyclerView.Adapter<AlimentoAdapter.Alimen
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             AlimentoEntry alimento = mAlimentoData.get(adapterPosition);
-            mClickHandler.onClick(alimento);
+            mClickHandler.onClick(alimento, mAlimenteImageView);
         }
     }
 }

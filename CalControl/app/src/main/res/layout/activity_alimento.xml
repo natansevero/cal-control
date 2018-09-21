@@ -6,7 +6,7 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/iv_alimento_saw"
+        android:id="@+id/iv_alimento_image"
         android:layout_width="200dp"
         android:layout_height="160dp"
         android:layout_gravity="center"
@@ -19,7 +19,7 @@
         android:layout_weight="2"
         android:gravity="bottom"
         style="@style/TextViewStyles"
-        android:text="Descricao"
+        android:text="Descrição"
         android:layout_gravity="center"/>
 
     <FrameLayout

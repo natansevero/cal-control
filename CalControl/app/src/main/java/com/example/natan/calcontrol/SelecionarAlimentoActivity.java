@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.example.natan.calcontrol.adapter.AlimentoAdapter;
 import com.example.natan.calcontrol.adapter.AlimentoAdapterOnClickListener;
@@ -59,7 +60,7 @@ public class SelecionarAlimentoActivity extends AppCompatActivity implements Ali
     }
 
     @Override
-    public void onClick(final AlimentoEntry alimento) {
+    public void onClick(final AlimentoEntry alimento, ImageView imgView) {
         Log.d("ALIMENTO", ""+alimento.getId());
         alimento.setData(Util.getTime());
 

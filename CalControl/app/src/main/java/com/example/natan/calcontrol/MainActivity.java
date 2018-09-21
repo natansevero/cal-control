@@ -1,11 +1,13 @@
 package com.example.natan.calcontrol;
 
+import android.app.ActivityOptions;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IInterface;
 import android.os.Message;
@@ -18,12 +20,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.natan.calcontrol.adapter.AlimentoAdapter;
 import com.example.natan.calcontrol.adapter.AlimentoAdapterOnClickListener;
 import com.example.natan.calcontrol.database.AlimentoEntry;
 import com.example.natan.calcontrol.database.AppDatabase;
+import com.example.natan.calcontrol.notification.VerifyCalNotification;
 import com.example.natan.calcontrol.receivers.BatteryLevelReceiver;
 import com.example.natan.calcontrol.services.GetDataService;
 import com.example.natan.calcontrol.utils.Util;
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
     private static final String PREFERENCES_FILE = "FILE_CAL";
 
     private Intent intent;
+
+    private Double resultadoDeficit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +107,9 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
         mAlimentoAdapter = new AlimentoAdapter(this);
         mAlimentosDoDiaRecyclerView.setAdapter(mAlimentoAdapter);
 
-        loadByData();
-
         mGetDataHandler = new GetDataHandler();
+
+        loadByData();
 
     }
 
@@ -123,6 +129,10 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
             public void onChanged(@Nullable Double aDouble) {
                 if(aDouble != null) {
                     mDiaCalTextView.setText("" + aDouble + " cal");
+
+                    if(resultadoDeficit != null && aDouble > resultadoDeficit) {
+                        VerifyCalNotification.createNotification(MainActivity.this);
+                    }
                 } else {
                     mDiaCalTextView.setText("0 cal");
                 }
@@ -177,12 +187,12 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
             return true;
         }
 
-        if(itemWasSelected == R.id.configuracoes_action) {
-            Intent intent = new Intent(this, ConfiguracaoActivity.class);
-            startActivity(intent);
-
-            return true;
-        }
+//        if(itemWasSelected == R.id.configuracoes_action) {
+//            Intent intent = new Intent(this, ConfiguracaoActivity.class);
+//            startActivity(intent);
+//
+//            return true;
+//        }
 
         if(itemWasSelected == R.id.infos_action) {
             Intent intent = new Intent(this, InfosActivity.class);
@@ -195,10 +205,16 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
     }
 
     @Override
-    public void onClick(AlimentoEntry alimento) {
+    public void onClick(AlimentoEntry alimento, ImageView imgView) {
         Intent intent = new Intent(this, AlimentoActivity.class);
         intent.putExtra("alimento", alimento);
-        startActivity(intent);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, imgView, "robot");
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 
     public void startServiceGetData() {
@@ -225,6 +241,8 @@ public class MainActivity extends AppCompatActivity implements AlimentoAdapterOn
 
                 mMetaCalTextView.setText(String.format("%s %s", "Meta:", meta));
                 mResultadoCalTextView.setText(String.format("%s %s", resultado, "cal"));
+
+                resultadoDeficit = resultado;
 
                 Log.d("META", meta);
                 Log.d("RESULTADO", ""+resultado);

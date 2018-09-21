@@ -11,10 +11,10 @@
         android:title="@string/meus_alimentos_action"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/configuracoes_action"
-        android:title="@string/configuracoes_action"
-        app:showAsAction="never"/>
+    <!--<item-->
+        <!--android:id="@+id/configuracoes_action"-->
+        <!--android:title="@string/configuracoes_action"-->
+        <!--app:showAsAction="never"/>-->
 
     <item
         android:id="@+id/infos_action"
